@@ -66,6 +66,8 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Debug Config (Before Build)
+        run: cat next.config.js
       - name: Build with Next.js
         run: npm run build
       - name: Debug Output Directory
