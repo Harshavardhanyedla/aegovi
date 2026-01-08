@@ -41,24 +41,11 @@ export function useSessionCapture(sessionId: string | null) {
             recordEvent({ type: 'snapshot', timestamp: Date.now(), content: '// Simulated Snapshot' });
         }, 10000);
 
-        // Batch upload interval
-        const uploadInterval = setInterval(async () => {
+        // Batch upload interval (Disabled for Static Export)
+        const uploadInterval = setInterval(() => {
             if (eventsBuffer.current.length === 0) return;
-
-            const eventsToUpload = [...eventsBuffer.current];
+            console.log('Aegovi: Captured events (static mode):', eventsBuffer.current.length);
             eventsBuffer.current = [];
-
-            try {
-                await fetch(`/api/sessions/${sessionId}/events`, {
-                    method: 'POST',
-                    body: JSON.stringify({ events: eventsToUpload }),
-                    headers: { 'Content-Type': 'application/json' }
-                });
-            } catch (error) {
-                console.error('Failed to flush events', error);
-                // Prepend back to buffer on failure?
-                eventsBuffer.current = [...eventsToUpload, ...eventsBuffer.current];
-            }
         }, 5000);
 
         return () => {

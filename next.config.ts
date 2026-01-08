@@ -5,8 +5,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/aegovi',
-  assetPrefix: '/aegovi',
 };
 
 export default nextConfig;
