@@ -69,7 +69,9 @@ jobs:
       - name: Build with Next.js
         run: npm run build
       - name: Debug Output Directory
-        run: ls -la ${{ github.workspace }}/out || echo "out directory not found"
+        run: |
+          ls -la ${{ github.workspace }}
+          ls -la ${{ github.workspace }}/out || echo "out directory not found"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
